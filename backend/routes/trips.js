@@ -4,10 +4,8 @@ const { authMiddleware } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-// Middleware de autenticação obrigatório para todas as rotas de trips
 router.use(authMiddleware);
 
-// UC03: Criar viagem
 router.post('/', async (req, res) => {
     try {
         const { title } = req.body;
@@ -15,7 +13,6 @@ router.post('/', async (req, res) => {
 
         const db = await getDbConnection();
         
-        // Iniciar transação: cria viagem e se adiciona como participante
         await db.run('BEGIN TRANSACTION');
         
         const result = await db.run(
@@ -38,7 +35,6 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Listar viagens do usuário
 router.get('/', async (req, res) => {
     try {
         const db = await getDbConnection();
@@ -56,13 +52,11 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Detalhes da Viagem
 router.get('/:id', async (req, res) => {
     try {
         const db = await getDbConnection();
         const tripId = req.params.id;
 
-        // Verifica se usuário é participante
         const isParticipant = await db.get('SELECT 1 FROM trip_participants WHERE trip_id = ? AND user_id = ?', [tripId, req.user.id]);
         if (!isParticipant) return res.status(403).json({ error: 'Acesso negado.' });
 
@@ -81,7 +75,6 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// UC04: Gerenciar participantes da viagem (Adicionar)
 router.post('/:id/participants', async (req, res) => {
     try {
         const { email } = req.body;
@@ -92,7 +85,6 @@ router.post('/:id/participants', async (req, res) => {
         
         if (!trip) return res.status(404).json({ error: 'Viagem não encontrada.' });
         
-        // RN02: Apenas admin (criador) pode adicionar participantes
         if (trip.created_by !== req.user.id) {
             return res.status(403).json({ error: 'Apenas o criador da viagem pode adicionar participantes.' });
         }
@@ -106,7 +98,6 @@ router.post('/:id/participants', async (req, res) => {
             return res.status(404).json({ error: 'Usuário com este email não encontrado no sistema.' });
         }
 
-        // Verifica se já está na viagem
         const exists = await db.get('SELECT 1 FROM trip_participants WHERE trip_id = ? AND user_id = ?', [tripId, userToAdd.id]);
         if (exists) {
             return res.status(400).json({ error: 'Usuário já é participante.' });
@@ -120,7 +111,6 @@ router.post('/:id/participants', async (req, res) => {
     }
 });
 
-// UC08: Finalizar viagem
 router.post('/:id/finish', async (req, res) => {
     try {
         const tripId = req.params.id;

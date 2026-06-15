@@ -5,7 +5,6 @@ const { authMiddleware } = require('../middleware/authMiddleware');
 const router = express.Router();
 router.use(authMiddleware);
 
-// UC09: Gerar prestação de contas (Resumo e Algoritmo de Otimização)
 router.get('/:tripId', async (req, res) => {
     try {
         const tripId = req.params.tripId;
@@ -38,7 +37,6 @@ router.get('/:tripId', async (req, res) => {
         for (let exp of expenses) {
             totalTripCost += exp.amount;
             
-            // Pagador ganha crédito (+ amount)
             if (balances[exp.payer_id] !== undefined) {
                 balances[exp.payer_id] += exp.amount;
             }
@@ -56,12 +54,10 @@ router.get('/:tripId', async (req, res) => {
             }
         }
 
-        // RN08: Minimizar transferências (Greedy Algorithm)
         const debtors = [];
         const creditors = [];
 
         for (const [userId, balance] of Object.entries(balances)) {
-            // Arredondar para evitar problemas de ponto flutuante
             const roundedBalance = Math.round(balance * 100) / 100;
             balances[userId] = roundedBalance;
 
@@ -95,7 +91,6 @@ router.get('/:tripId', async (req, res) => {
             debtor.amount -= transferAmount;
             creditor.amount -= transferAmount;
 
-            // Arredondamento para lidar com imprecisões JS
             debtor.amount = Math.round(debtor.amount * 100) / 100;
             creditor.amount = Math.round(creditor.amount * 100) / 100;
 

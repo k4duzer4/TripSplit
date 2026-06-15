@@ -25,7 +25,6 @@ const app = {
 
         const token = api.getToken();
         
-        // Proteção de rotas
         if (!token && view !== 'login' && view !== 'register') {
             this.navigate('login');
             return;
@@ -36,7 +35,6 @@ const app = {
             return;
         }
 
-        // Toggle Navbar
         document.getElementById('mainNavbar').style.display = token ? 'flex' : 'none';
         if (token) {
             const user = api.getUser();
@@ -138,7 +136,6 @@ const app = {
                 </div>
             </div>
 
-            <!-- Modal Nova Viagem -->
             <div class="modal fade" id="newTripModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -162,7 +159,6 @@ const app = {
                 <div class="text-center py-5"><div class="spinner-border text-primary"></div></div>
             </div>
 
-            <!-- Modal Adicionar Participante -->
             <div class="modal fade" id="addParticipantModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -182,7 +178,6 @@ const app = {
                 </div>
             </div>
 
-            <!-- Modal Adicionar Despesa -->
             <div class="modal fade" id="addExpenseModal" tabindex="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -363,7 +358,6 @@ const app = {
 
                 document.getElementById('tripDetailsContainer').innerHTML = html;
 
-                // Armazenar participantes para o modal de despesas
                 window.currentTripParticipants = trip.participants;
 
             } catch (err) {
@@ -505,5 +499,4 @@ const app = {
     }
 };
 
-// Start App
 window.onload = () => app.init();

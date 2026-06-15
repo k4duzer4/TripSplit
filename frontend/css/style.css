@@ -1,4 +1,3 @@
-/* Variables and Base Styles */
 :root {
     --primary-color: #4F46E5;
     --primary-hover: #4338CA;
@@ -16,13 +15,11 @@ body {
     transition: background-color 0.3s ease;
 }
 
-/* Typography Utilities */
 h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     color: #1F2937;
 }
 
-/* Premium Card (Glassmorphism inspired) */
 .premium-card {
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
@@ -38,7 +35,6 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
-/* Buttons */
 .btn-primary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
@@ -60,12 +56,10 @@ h1, h2, h3, h4, h5, h6 {
     border-color: var(--secondary-color);
 }
 
-/* Navbar */
 .bg-primary {
     background: linear-gradient(135deg, var(--primary-color) 0%, #6366F1 100%) !important;
 }
 
-/* Animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -75,7 +69,6 @@ h1, h2, h3, h4, h5, h6 {
     animation: fadeIn 0.4s ease-out forwards;
 }
 
-/* Custom Lists */
 .expense-item {
     border-left: 4px solid var(--primary-color);
     margin-bottom: 0.5rem;
@@ -90,20 +83,17 @@ h1, h2, h3, h4, h5, h6 {
     background: #F9FAFB;
 }
 
-/* Badges */
 .badge-custom {
     padding: 0.4em 0.8em;
     border-radius: 2rem;
     font-weight: 500;
 }
 
-/* Auth Container */
 .auth-container {
     max-width: 450px;
     margin: 5rem auto;
 }
 
-/* Layout Utilities */
 .view-container {
     display: none;
 }

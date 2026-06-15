@@ -14,7 +14,6 @@ async function getDbConnection() {
 async function initializeDatabase() {
     const db = await getDbConnection();
 
-    // Tabela de Usuários
     await db.exec(`
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,7 +23,6 @@ async function initializeDatabase() {
         )
     `);
 
-    // Tabela de Viagens
     await db.exec(`
         CREATE TABLE IF NOT EXISTS trips (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,7 +34,6 @@ async function initializeDatabase() {
         )
     `);
 
-    // Participantes da Viagem
     await db.exec(`
         CREATE TABLE IF NOT EXISTS trip_participants (
             trip_id INTEGER NOT NULL,
@@ -47,7 +44,6 @@ async function initializeDatabase() {
         )
     `);
 
-    // Tabela de Despesas
     await db.exec(`
         CREATE TABLE IF NOT EXISTS expenses (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -61,7 +57,6 @@ async function initializeDatabase() {
         )
     `);
 
-    // Participantes da Despesa (Quem deve pagar parte dessa despesa)
     await db.exec(`
         CREATE TABLE IF NOT EXISTS expense_participants (
             expense_id INTEGER NOT NULL,

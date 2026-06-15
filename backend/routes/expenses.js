@@ -5,13 +5,11 @@ const { authMiddleware } = require('../middleware/authMiddleware');
 const router = express.Router();
 router.use(authMiddleware);
 
-// Listar despesas de uma viagem
 router.get('/trip/:tripId', async (req, res) => {
     try {
         const tripId = req.params.tripId;
         const db = await getDbConnection();
 
-        // Verificar se usuário é participante
         const isParticipant = await db.get('SELECT 1 FROM trip_participants WHERE trip_id = ? AND user_id = ?', [tripId, req.user.id]);
         if (!isParticipant) return res.status(403).json({ error: 'Acesso negado.' });
 
@@ -23,7 +21,6 @@ router.get('/trip/:tripId', async (req, res) => {
             ORDER BY e.created_at DESC
         `, [tripId]);
 
-        // Para cada despesa buscar participantes
         for (let exp of expenses) {
             const participants = await db.all(`
                 SELECT u.id, u.name 
@@ -40,7 +37,6 @@ router.get('/trip/:tripId', async (req, res) => {
     }
 });
 
-// UC05: Registrar despesa
 router.post('/trip/:tripId', async (req, res) => {
     try {
         const tripId = req.params.tripId;
@@ -55,12 +51,10 @@ router.post('/trip/:tripId', async (req, res) => {
         const trip = await db.get('SELECT is_finished FROM trips WHERE id = ?', [tripId]);
         if (!trip) return res.status(404).json({ error: 'Viagem não encontrada.' });
         
-        // RN07: Após finalizar, não é possível adicionar despesas
         if (trip.is_finished) {
             return res.status(400).json({ error: 'Viagem já finalizada, não é possível adicionar despesas.' });
         }
 
-        // RN01: Apenas participantes podem cadastrar despesas
         const isParticipant = await db.get('SELECT 1 FROM trip_participants WHERE trip_id = ? AND user_id = ?', [tripId, req.user.id]);
         if (!isParticipant) return res.status(403).json({ error: 'Acesso negado.' });
 
@@ -84,7 +78,6 @@ router.post('/trip/:tripId', async (req, res) => {
     }
 });
 
-// UC06: Excluir despesa
 router.delete('/:id', async (req, res) => {
     try {
         const expenseId = req.params.id;
