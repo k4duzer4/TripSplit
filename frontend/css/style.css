@@ -1,0 +1,113 @@
+/* Variables and Base Styles */
+:root {
+    --primary-color: #4F46E5;
+    --primary-hover: #4338CA;
+    --secondary-color: #10B981;
+    --dark-bg: #111827;
+    --light-bg: #F3F4F6;
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--light-bg) !important;
+    color: #374151;
+    transition: background-color 0.3s ease;
+}
+
+/* Typography Utilities */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: #1F2937;
+}
+
+/* Premium Card (Glassmorphism inspired) */
+.premium-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.premium-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    border-radius: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.btn-success {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+/* Navbar */
+.bg-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #6366F1 100%) !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Custom Lists */
+.expense-item {
+    border-left: 4px solid var(--primary-color);
+    margin-bottom: 0.5rem;
+    background: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    transition: all 0.2s;
+}
+
+.expense-item:hover {
+    background: #F9FAFB;
+}
+
+/* Badges */
+.badge-custom {
+    padding: 0.4em 0.8em;
+    border-radius: 2rem;
+    font-weight: 500;
+}
+
+/* Auth Container */
+.auth-container {
+    max-width: 450px;
+    margin: 5rem auto;
+}
+
+/* Layout Utilities */
+.view-container {
+    display: none;
+}
+.view-container.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
